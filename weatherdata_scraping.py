@@ -16,7 +16,7 @@ sheet.append(['TEMPERATURE','LOCATION','SKY_STATE','PRECIPITATION','HUMIDITY','W
 
 # query=input("ENTER THE LOCATION : ")
 
-#list of states used to scrape the weather status
+#list of states
 loc=["tamilnadu","andhra","himachel",'haryana','uttar pradesh','rajasthan','kerala','patna','goa','jaipur','manipur','nagaland','karnataka','punjab']
 
 #user agent for permitting the access for webpage
@@ -26,7 +26,7 @@ try:
 
  for i in loc:
 
-    #getting the html source from the webpage
+    #requesting the webpage for  html source
     source=requests.get("https://www.google.com/search?q="+i+"+weather",headers=headers)
 
     #will indicate if any error
@@ -36,7 +36,7 @@ try:
     soup=BeautifulSoup(source.text,'html.parser')
 
 
-    # fetching the necessary information needed for our process from their respective individual tags in html content
+    # fetching the necessary data needed for our process from the respective individual tags in html content
 
     num=soup.find('span',class_="wob_t q8U8x").text
     celcius=soup.find('div',class_="vk_bk wob-unit").span.text
@@ -56,7 +56,7 @@ try:
     print(f"Precipitation : ",precipitation,"  Humidity : ",humidity,"  Wind : ",wind)
 
 
-    #appending the each individual info to a excel file 
+    #appending the each individual data to a excel file 
     sheet.append([temperature,location,sky,precipitation,humidity,wind])
 
 #indicates if any error occurs
@@ -64,4 +64,4 @@ except Exception as e:
     print("e")
 
 #saving locally the entire weather status as a excel file
-excel.save("weather report7.xlsx")
+excel.save("weather report.xlsx")
